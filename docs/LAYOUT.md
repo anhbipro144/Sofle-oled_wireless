@@ -21,7 +21,7 @@ no new warnings (the `label` deprecation warnings are gone). Same flash/RAM use 
 | TAB  |  Q   |  W   |  E   |  R   |  T   |              |  Y   |  U   |  I   |  O   |  P   |  =   |
 | ESC  |  A   |  S   |  D   |  F   |  G   |              |  H   |  J   |  K   |  L   |  ;   |  '   |
 |SHIFT |  Z   |  X   |  C   |  V   |  B   | MUTE |      |  N   |  M   |  ,   |  .   |  /   |SHIFT |
-       | GUI  | NAV  | ALT  | CTRL |SPACE |              |ENTER | BSPC | SYM  |RAYCST| ALT  |
+       | GUI  | NAV  | ALT  | CTRL |SPACE |              |ENTER | BSPC | SYM  |RAYCST|INPUT |
 
 [NAV]
 |  .   |  .   |  .   |  .   |  .   |  .   |              |  .   |  .   |  .   |  .   |  .   |  .   |
@@ -46,7 +46,7 @@ no new warnings (the `label` deprecation warnings are gone). Same flash/RAM use 
 ```
 
 Thumb keys, outermost to innermost on the left, innermost to outermost on the right:
-`GUI [NAV] ALT CTRL SPACE | ENTER BSPC [SYM] RAYCAST ALT`. `RAYCAST` = Option+Space in one key (Raycast's hotkey). Delete = hold NAV + that same key. `\` is on the SYM layer.
+`GUI [NAV] ALT CTRL SPACE | ENTER BSPC [SYM] RAYCAST INPUT`. `RAYCAST` = Option+Space in one key (Raycast's hotkey). Delete = hold NAV + that same key. `INPUT` = Control+Space in one key (macOS input-source switch). `\` is on the SYM layer.
 Layers are plain momentary holds (`&mo`), **not** tap-hold. Hold NAV + SYM together to get SYS.
 
 ## Modifiers on macOS (one rule: the Sofle is remapped only here, in firmware)
@@ -63,6 +63,7 @@ and has **no** entry for the Sofle (`ZMK Project` 7504/24926). Keep it that way;
 | Vim `Ctrl-w`, `Ctrl-d`, … | 4th left thumb `CTRL` + key | – |
 | macOS Cmd-C/V/Tab | outermost left thumb `GUI` + key | – |
 | Raycast | 4th right thumb (sends Option+Space) | `LA(SPACE)` in `sofle.keymap` |
+| Input source | outermost right thumb (sends Control+Space) | `LC(SPACE)` in `sofle.keymap` |
 | Esc | `ESC` key itself (left home-row edge) | firmware; the Mac's Caps → Esc remap does not apply to the Sofle |
 
 ## Against your requirements
