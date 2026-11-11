@@ -34,10 +34,10 @@ Run it again any time with `gh workflow run build.yml -R anhbipro144/Sofle-oled_
 
 | Half | Firmware | Proof |
 |---|---|---|
-| Left | keymap v1.2 from `feature/nvim-miryoku-v1` (`e68e329`, SHA-256 `768996189ff6f37d…`) | flashed from the verified CI artifact |
-| Right | seller baseline (`50f807d822c3f354…`) | its `CURRENT.UF2` dump is block-identical to the baseline build |
+| Left | keymap v1.4 from `feature/nvim-miryoku-v1` (`99c71b1`, SHA-256 `3d846fb25bc3b4b3…`) | flashed from the verified CI artifact; its pre-flash dump matched v1.2 |
+| Right | v1.2 build (`101bcab3140d74f6…`, unchanged by every keymap version since v1) | flashed from the verified CI artifact; its pre-flash dump matched the seller baseline |
 
-Before the first flash, the left half's dump was block-identical to the seller baseline too, so the seller `.uf2` files are exact restore points for both halves.
+Before the first flash, each half's dump was block-identical to the seller baseline too, so the seller `.uf2` files are exact restore points for both halves.
 Dumps + `INFO_UF2.TXT` (both halves: nice!nano, UF2 bootloader 0.6.0, S140 6.1.1) are kept locally in `~/persona/sofle-zmk/installed-backup/{left,right}/`, not in Git.
 Known-good `.uf2` files: GitHub release `installed-2026-11-11` on this fork (once published).
 
