@@ -1,15 +1,15 @@
 # Neovim-oriented layout v1 (`feature/nvim-miryoku-v1`)
 
-**Status: experimental, not merged.** v1 (`da32702…`) flashed to the left half on 2026-11-11; v1.1 (Alt/Cmd swap) flashed to the left half the same day; v1.2 (NAV/Option swap) flashed to both halves the same day. v1.3 (`\` on a right thumb, Delete moved to NAV) built, not yet flashed. The seller's keymap is untouched on `main`
+**Status: experimental, not merged.** v1 (`da32702…`) flashed to the left half on 2026-11-11; v1.1 (Alt/Cmd swap) flashed to the left half the same day; v1.2 (NAV/Option swap) flashed to both halves the same day. v1.4 (`\` on a right thumb, Delete moved to NAV; SYM adds `\` and `?` for the left hand) built, not yet flashed. The seller's keymap is untouched on `main`
 (also in `docs/reference/sofle.keymap.seller`). To flash this, read `docs/SETUP.md` first.
 
 Local pristine build (Docker, same steps as CI) succeeded: 4 layers x 60 bindings in the compiled devicetree, `sys_trigger` = layers 1+2 -> 3,
 no new warnings (the `label` deprecation warnings are gone). Same flash/RAM use as the seller build (43.1 % / 34.7 %).
 ```
-f7ca13fb7b67db04…  sofle_left-nice_nano_v2-zmk.uf2
+3d846fb25bc3b4b3…  sofle_left-nice_nano_v2-zmk.uf2
 101bcab3140d74f6…  sofle_right-nice_nano_v2-zmk.uf2
 ```
-(first 16 hex chars of SHA-256, v1.3; right half unchanged since v1). v1 (`da32702…`) was also built by GitHub Actions with identical hashes.
+(first 16 hex chars of SHA-256, v1.4; right half unchanged since v1). v1 (`da32702…`) was also built by GitHub Actions with identical hashes.
 
 ## Layout
 
@@ -33,9 +33,9 @@ f7ca13fb7b67db04…  sofle_left-nice_nano_v2-zmk.uf2
 [SYM]
 |  .   |  .   |  .   |  .   |  .   |  .   |              |  .   |  .   |  .   |  .   |  .   |  .   |
 |  .   |  {   |  &   |  *   |  (   |  }   |              |  [   |  7   |  8   |  9   |  ]   |  .   |
-|  .   |  :   |  $   |  %   |  ^   |  +   |              |  ;   |  4   |  5   |  6   |  =   |  .   |
+|  ?   |  :   |  $   |  %   |  ^   |  +   |              |  ;   |  4   |  5   |  6   |  =   |  .   |
 |  .   |  ~   |  !   |  @   |  #   |  |   |  .   |  .   |  `   |  1   |  2   |  3   |  \   |  .   |
-       |  .   |  .   |  .   |  )   |  _   |              |  .   |  .   |  .   |  .   |  .   |
+       |  .   |  .   |  \   |  )   |  _   |              |  .   |  .   |  .   |  .   |  .   |
 
 [SYS]
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |              |  F7  |  F8  |  F9  | F10  | F11  | F12  |
@@ -76,7 +76,7 @@ and has **no** entry for the Sofle (`ZMK Project` 7504/24926). Keep it that way;
 | `( ) [ ] { }` | SYM: `(` left index (top row), `)` left thumb; `[ ]` right hand Y/P keys; `{ }` left pinky/inner-index top row |
 | `=` `-` `_` | `=` and `-` are plain keys on the right edge of BASE; `_` is a left thumb in SYM (snake_case) |
 | `:` `;` `/` | `;` and `/` stay on BASE; `:` is Shift+`;` as usual, or left pinky home in SYM |
-| `\` `\|` | `\` is a plain right-thumb key (Shift for `\|`); also SYM right hand. `|` also SYM left inner-index bottom row |
+| `\` `\|` `?` | `\` is a plain right-thumb key (Shift for `\|`). In SYM: `\` on the middle left thumb and right hand, `?` on the left outer pinky (home row), `\|` left inner-index bottom row |
 | Navigation | NAV: arrows on `h j k l` (right hand), Home/PgDn/PgUp/End above, plain GUI/ALT/CTRL/SHIFT under left home row |
 | Bluetooth + recovery | SYS: BT0–BT4, `BOOT` (bottom-left corner), `BTCLR` (bottom-right corner) |
 | No combos / home-row mods | none used |
