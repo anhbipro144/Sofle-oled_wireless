@@ -40,14 +40,14 @@
             // | TAB  |  Q   |  W   |  E   |  R   |  T   |              |  Y   |  U   |  I   |  O   |  P   |  =   |
             // | ESC  |  A   |  S   |  D   |  F   |  G   |              |  H   |  J   |  K   |  L   |  ;   |  '   |
             // |SHIFT |  Z   |  X   |  C   |  V   |  B   | MUTE |      |  N   |  M   |  ,   |  .   |  /   |SHIFT |
-            //        | GUI  | NAV  | ALT  | CTRL |SPACE |              |ENTER | BSPC | SYM  | DEL  | ALT  |
+            //        | GUI  | NAV  | ALT  | CTRL |SPACE |              |ENTER | BSPC | SYM  |  \   | ALT  |
 
             bindings = <
 &kp GRAVE   &kp N1      &kp N2      &kp N3      &kp N4      &kp N5                              &kp N6      &kp N7      &kp N8      &kp N9      &kp N0      &kp MINUS
 &kp TAB     &kp Q       &kp W       &kp E       &kp R       &kp T                               &kp Y       &kp U       &kp I       &kp O       &kp P       &kp EQUAL
 &kp ESC     &kp A       &kp S       &kp D       &kp F       &kp G                               &kp H       &kp J       &kp K       &kp L       &kp SEMI    &kp SQT
 &kp LSHFT   &kp Z       &kp X       &kp C       &kp V       &kp B       &kp C_MUTE  &none       &kp N       &kp M       &kp COMMA   &kp DOT     &kp FSLH    &kp RSHFT
-            &kp LGUI    &mo NAV     &kp LALT    &kp LCTRL   &kp SPACE                           &kp ENTER   &kp BSPC    &mo SYM     &kp DEL     &kp RALT
+            &kp LGUI    &mo NAV     &kp LALT    &kp LCTRL   &kp SPACE                           &kp ENTER   &kp BSPC    &mo SYM     &kp BSLH    &kp RALT
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -63,14 +63,14 @@
             // |  .   |      |      |      |      |      |              | HOME | PGDN | PGUP | END  |      |  .   |
             // |  .   | GUI  | ALT  | CTRL |SHIFT |      |              |  <-  |  v   |  ^   |  ->  |      |  .   |
             // |  .   |      |      |      |      |      |  .   |  .   |      |      |      |      |      |  .   |
-            //        |  .   |  .   |  .   |  .   |  .   |              |  .   |  .   |  .   |  .   |  .   |
+            //        |  .   |  .   |  .   |  .   |  .   |              |  .   |  .   |  .   | DEL  |  .   |
 
             bindings = <
 &trans     &trans     &trans     &trans     &trans     &trans                           &trans     &trans     &trans     &trans     &trans     &trans
 &trans     &none      &none      &none      &none      &none                            &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &none      &trans
 &trans     &kp LGUI   &kp LALT   &kp LCTRL  &kp LSHFT  &none                            &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &none      &trans
 &trans     &none      &none      &none      &none      &none      &trans     &trans     &none      &none      &none      &none      &none      &trans
-           &trans     &trans     &trans     &trans     &trans                           &trans     &trans     &trans     &trans     &trans
+           &trans     &trans     &trans     &trans     &trans                           &trans     &trans     &trans     &kp DEL    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
