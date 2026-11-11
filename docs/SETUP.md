@@ -27,15 +27,19 @@ Pristine rebuild of branch `setup/docs-and-tooling` (ZMK pinned by SHA) produced
 Warnings seen (all benign): `label` property deprecated (use `display-name`); right half ignores `CONFIG_ZMK_USB=y`
 (peripherals have no USB HID); array-bounds warnings only in the `settings_reset` target (no keymap).
 
-**GitHub Actions baseline build: not yet run.** New forks keep workflows dormant until the owner confirms in the web UI
-(there is no API for this). One-time step:
-1. Open <https://github.com/anhbipro144/Sofle-oled_wireless/actions> → **"I understand my workflows, go ahead and enable them"**.
-2. Run the baseline: `gh workflow run build.yml --ref baseline-build` (branch `baseline-build` points at the untouched seller commit),
-   or push any branch – `on: push` builds everything.
+**GitHub Actions baseline build: succeeded** (run 42958605642, branch `baseline-build`); its `.uf2` files are byte-identical to the local build above.
+Run it again any time with `gh workflow run build.yml -R anhbipro144/Sofle-oled_wireless --ref baseline-build`.
 
-### This baseline is NOT a backup of what is on your keyboard
-It is the seller's *current* `main`. Your halves may run an older/newer build, and Studio edits live only in the keyboard's flash.
-For a real backup, see [Before the first flash](#before-the-first-flash).
+### What is installed (as of 2026-11-11)
+
+| Half | Firmware | Proof |
+|---|---|---|
+| Left | keymap v1.2 from `feature/nvim-miryoku-v1` (`e68e329`, SHA-256 `768996189ff6f37d…`) | flashed from the verified CI artifact |
+| Right | seller baseline (`50f807d822c3f354…`) | its `CURRENT.UF2` dump is block-identical to the baseline build |
+
+Before the first flash, the left half's dump was block-identical to the seller baseline too, so the seller `.uf2` files are exact restore points for both halves.
+Dumps + `INFO_UF2.TXT` (both halves: nice!nano, UF2 bootloader 0.6.0, S140 6.1.1) are kept locally in `~/persona/sofle-zmk/installed-backup/{left,right}/`, not in Git.
+Known-good `.uf2` files: GitHub release `installed-2026-11-11` on this fork (once published).
 
 ## Required tools
 
@@ -55,7 +59,7 @@ gh run download <run-id> -n firmware -D ~/Downloads/sofle-fw
 ```
 
 - The `Draw ZMK keymaps` workflow commits `keymap-drawer/*.svg|yaml` back to your branch after keymap pushes → `git pull --rebase` before your next push.
-- GitHub keeps artifacts 90 days. Keep known-good `.uf2` files somewhere permanent (e.g. `gh release create`).
+- GitHub keeps artifacts 90 days. Keep known-good `.uf2` files in a GitHub release (`installed-2026-11-11` holds the current ones).
 - Pinned: ZMK in `config/west.yml` (commit SHA). **Not pinned:** the CI container `zmkfirmware/zmk-build-arm:stable` is a floating tag baked into
   the upstream `build-user-config.yml@v0.3.0`; if CI ever breaks without a change of yours, that is the first suspect
   (fix: copy that workflow into this repo and pin the image to `:3.5`).
@@ -73,22 +77,19 @@ Consequences: a **keymap-only change needs only the left half flashed**. A `sofl
 Plugging USB into the right half does not give Studio. Flashing normal firmware does not touch the settings partition,
 so Bluetooth bonds and Studio overrides survive.
 
-## Before the first flash
+## Backup + flash routine (one half at a time)
 
-1. Identify the controller: it must be a real nice!nano v2 (or a verified clone). Double-tap reset → a drive appears; open `INFO_UF2.TXT` and record `Model` / `Board-ID`.
-   `nice_nano_v2` assumes the Adafruit UF2 bootloader, battery divider, and external-power pin of the nice!nano v2. Clones can differ (battery %, RGB power).
-2. Back up that half: copy `CURRENT.UF2` from the bootloader drive (if present) to a safe place. It is a raw dump of the application flash of *that half*;
-   whether it includes the settings partition depends on the bootloader build – treat it as best effort, unverified on your hardware.
-3. Open ZMK Studio, screenshot all four layers (`default/lower/raise/adjust`). This is the only record of any Studio edits.
-4. Note which Bluetooth profile (0–4) your computer uses.
+The reset button is the small tactile switch next to the OLED, above the TRRS jack (no disassembly). The switch beside the USB-C port is power.
 
-## Manual flashing (one half at a time)
-
-1. Connect that one half to the computer by USB and switch it ON (the other half can stay as is).
-2. Double-tap the reset button quickly → drive `NICENANO` mounts.
-3. Drag the right `.uf2` onto it (`sofle_left-…` to the left half, `sofle_right-…` to the right). The drive disappears and the half reboots on its own.
-4. Test typing before flashing the other half. Never copy `settings_reset-…uf2`.
-5. After flashing a *different keymap*, do Studio → **Restore Stock Settings** (below).
+1. Plug that one half in by USB (power switch ON so the battery charges; USB alone powers the controller). Double-tap reset → drive `NICENANO` mounts.
+2. Identify and back up: copy `CURRENT.UF2` and `INFO_UF2.TXT` off the drive. `INFO_UF2.TXT` must say `Model: nice!nano`.
+   `CURRENT.UF2` dumps the application flash only (`0x1000`–`0xACF00` on this bootloader): no Bluetooth bonds, no Studio edits.
+3. Confirm which half / firmware it is:
+   `scripts/uf2-compare.py /Volumes/NICENANO/CURRENT.UF2 <expected-current>.uf2` → `0 … differing` means it is the half you think it is.
+4. Copy the new `.uf2` onto the drive (`sofle_left-…` to the left half only). The drive disappears and the half reboots on its own;
+   it should reappear as USB device `Sofle` / `ZMK Project`. Never copy `settings_reset-…uf2`.
+5. Test typing. After flashing a *different keymap*, do Studio → **Restore Stock Settings** (below).
+6. Keymap-only change → flash only the left half. Leave the right half alone unless `sofle.conf` / `west.yml` changed.
 
 ## Returning to baseline
 
