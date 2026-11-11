@@ -1,15 +1,15 @@
 # Neovim-oriented layout v1 (`feature/nvim-miryoku-v1`)
 
-**Status: experimental, not merged.** v1 (`da32702…`) flashed to the left half on 2026-11-11; v1.1 (Alt/Cmd swap below) built, not yet flashed. The seller's keymap is untouched on `main`
+**Status: experimental, not merged.** v1 (`da32702…`) flashed to the left half on 2026-11-11; v1.1 (Alt/Cmd swap) flashed to the left half the same day; v1.2 (NAV/Option swap below) built, not yet flashed. The right half runs the seller's firmware (the keymap compiled into a peripheral is never used). The seller's keymap is untouched on `main`
 (also in `docs/reference/sofle.keymap.seller`). To flash this, read `docs/SETUP.md` first.
 
 Local pristine build (Docker, same steps as CI) succeeded: 4 layers x 60 bindings in the compiled devicetree, `sys_trigger` = layers 1+2 -> 3,
 no new warnings (the `label` deprecation warnings are gone). Same flash/RAM use as the seller build (43.1 % / 34.7 %).
 ```
-2a63797ea2f4e310…  sofle_left-nice_nano_v2-zmk.uf2
+768996189ff6f37d…  sofle_left-nice_nano_v2-zmk.uf2
 101bcab3140d74f6…  sofle_right-nice_nano_v2-zmk.uf2
 ```
-(first 16 hex chars of SHA-256, v1.1; right half unchanged since v1). v1 (`da32702…`) was also built by GitHub Actions with identical hashes.
+(first 16 hex chars of SHA-256, v1.2; right half unchanged since v1). v1 (`da32702…`) was also built by GitHub Actions with identical hashes.
 
 ## Layout
 
@@ -21,7 +21,7 @@ no new warnings (the `label` deprecation warnings are gone). Same flash/RAM use 
 | TAB  |  Q   |  W   |  E   |  R   |  T   |              |  Y   |  U   |  I   |  O   |  P   |  =   |
 | ESC  |  A   |  S   |  D   |  F   |  G   |              |  H   |  J   |  K   |  L   |  ;   |  '   |
 |SHIFT |  Z   |  X   |  C   |  V   |  B   | MUTE |      |  N   |  M   |  ,   |  .   |  /   |SHIFT |
-       | GUI  | ALT  | NAV  | CTRL |SPACE |              |ENTER | BSPC | SYM  | DEL  | ALT  |
+       | GUI  | NAV  | ALT  | CTRL |SPACE |              |ENTER | BSPC | SYM  | DEL  | ALT  |
 
 [NAV]
 |  .   |  .   |  .   |  .   |  .   |  .   |              |  .   |  .   |  .   |  .   |  .   |  .   |
@@ -46,7 +46,7 @@ no new warnings (the `label` deprecation warnings are gone). Same flash/RAM use 
 ```
 
 Thumb keys, outermost to innermost on the left, innermost to outermost on the right:
-`GUI ALT [NAV] CTRL SPACE | ENTER BSPC [SYM] DEL ALT`.
+`GUI [NAV] ALT CTRL SPACE | ENTER BSPC [SYM] DEL ALT`.
 Layers are plain momentary holds (`&mo`), **not** tap-hold. Hold NAV + SYM together to get SYS.
 
 ## Modifiers on macOS (one rule: the Sofle is remapped only here, in firmware)
@@ -57,8 +57,8 @@ and has **no** entry for the Sofle (`ZMK Project` 7504/24926). Keep it that way;
 
 | Job | Keys on the Sofle | Defined in |
 |---|---|---|
-| AeroSpace workspace 1–10 / move window | 2nd left thumb `ALT` + `1`…`0` (+ `SHIFT` to move) | `aerospace.nix` (`alt-N`) |
-| AeroSpace workspace 11–19 | `ALT` + `CTRL` + `1`…`9` | `aerospace.nix` (`alt-ctrl-N`) |
+| AeroSpace workspace 1–10 / move window | middle left thumb `ALT` + `1`…`0` (+ `SHIFT` to move) | `aerospace.nix` (`alt-N`) |
+| AeroSpace workspace 11–19 | `ALT` + `CTRL` + `1`…`9` (adjacent thumbs: press both with one thumb) | `aerospace.nix` (`alt-ctrl-N`) |
 | AeroSpace focus / move window | `ALT` + `h j k l` (+ `SHIFT`) | `aerospace.nix` |
 | Vim `Ctrl-w`, `Ctrl-d`, … | 4th left thumb `CTRL` + key | – |
 | macOS Cmd-C/V/Tab | outermost left thumb `GUI` + key | – |
@@ -100,7 +100,7 @@ and has **no** entry for the Sofle (`ZMK Project` 7504/24926). Keep it that way;
 - **Esc on the pinky home edge, not a thumb.** Thumbs are spent on Ctrl, Space, Enter, Backspace, and the two layers. Reach is a small cost; CapsLock-as-Esc is the classic Vim position.
 - **One Ctrl (left thumb).** Right-hand letters (`u o i p`) are fine; no right Ctrl until you ask for one.
 - **SYM follows Miryoku's numpad shape**, so it is less obvious than a shifted number row at first. The right-hand digit block is redundant while the number row exists; it is there to keep `[ ] ; = \ \`` together and to ease the later move to Miryoku. `(` and `)` are split across index/thumb – that is the least pretty spot, adjust after a week of use.
-- **Cmd on the outermost left thumb** is a stretch; Option (AeroSpace) got the easier 2nd thumb, where the seller had it. Move Cmd once you know how often you press it.
+- **Cmd on the outermost left thumb** is a stretch. Option (AeroSpace, used most) sits in the middle of the cluster next to Ctrl, so `alt-ctrl-N` is one thumb; NAV moved one key outward. Move Cmd once you know how often you press it.
 - **Studio:** layer ids/names changed. After flashing, do Studio → *Restore Stock Settings* or old Studio edits will paint over this layout.
 
 ## Vim sanity check
