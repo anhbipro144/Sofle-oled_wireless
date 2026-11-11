@@ -28,7 +28,7 @@ PY
       name="${shield:+$shield-}$board-zmk"
       echo "=== BUILD $name"
       # shellcheck disable=SC2086
-      west build -s zmk/app -d "/work/build/$name" -b "$board" ${snippet:+-S "$snippet"} -- \
+      west build -p always -s zmk/app -d "/work/build/$name" -b "$board" ${snippet:+-S "$snippet"} -- \
         -DZMK_CONFIG=/work/config ${shield:+-DSHIELD="$shield"} $cmake
       cp "/work/build/$name/zephyr/zmk.uf2" "/out/$name.uf2"
     done
