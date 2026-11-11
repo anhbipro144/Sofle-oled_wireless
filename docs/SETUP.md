@@ -22,6 +22,8 @@ e13db75a0a34b1b093ff80671b12c8e034f0b8b3ae3e36bdd5f3b1eb643f3ef2  sofle_left-nic
 4031c0b2f3482cd7070ea5c57b95f3713785c4ca61441bdd986d81fe7de16957  settings_reset-nice_nano_v2-zmk.uf2   # NEVER FLASH for normal use
 ```
 
+Pristine rebuild of branch `setup/docs-and-tooling` (ZMK pinned by SHA) produced **byte-identical** `.uf2` files, so the pin is a no-op and builds are reproducible in this container.
+
 Warnings seen (all benign): `label` property deprecated (use `display-name`); right half ignores `CONFIG_ZMK_USB=y`
 (peripherals have no USB HID); array-bounds warnings only in the `settings_reset` target (no keymap).
 
